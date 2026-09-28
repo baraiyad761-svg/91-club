@@ -1,25 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>91 CLUB</title>
+<title>91 CLUB - Play & Win</title>
 <style>
-body{background:#111;color:#fff;font-family:sans-serif;margin:0}
-.header{background:red;padding:15px;text-align:center;font-size:22px;font-weight:bold}
-.wallet{background:#222;margin:10px;padding:15px;border-radius:10px;display:flex;justify-content:space-between}
-.games{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
-.card{background:#333;padding:25px;border-radius:12px;text-align:center}
-.card a{color:white;text-decoration:none}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0f0f0f;color:#fff}
+.header{background:#e60000;padding:16px;text-align:center;font-size:24px;font-weight:bold;position:sticky;top:0;z-index:10}
+.wallet{background:#1e1e1e;margin:12px;padding:14px 18px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;border:1px solid #333}
+.wallet span{font-size:18px;font-weight:bold;color:#00ff88}
+.wallet button{background:#00c853;color:#fff;border:none;padding:8px 18px;border-radius:20px;font-weight:bold;cursor:pointer}
+.games{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}
+.card{background:linear-gradient(135deg,#2a2a2a,#1a1a1a);padding:28px 10px;border-radius:16px;text-align:center;border:1px solid #333;cursor:pointer}
+.card:active{transform:scale(0.95);border-color:#e60000}
+.card .icon{font-size:36px;display:block;margin-bottom:8px}
+.card .name{font-size:14px;font-weight:bold}
+#gameView{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#0f0f0f;z-index:20;overflow:auto}
+#gameView .top{padding:15px;background:#1e1e1e;display:flex;align-items:center;gap:15px}
+#gameView .top button{background:#333;color:#fff;border:none;padding:8px 14px;border-radius:8px}
+.game-area{padding:20px;text-align:center}
+.big-btn{background:#e60000;color:#fff;border:none;padding:14px 30px;border-radius:10px;font-size:18px;font-weight:bold;margin:15px;cursor:pointer;width:80%}
+.multiplier{font-size:60px;font-weight:bold;color:#00ff88;margin:30px 0}
+.grid-mines{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:300px;margin:20px auto}
+.mine-cell{background:#333;height:55px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer}
+.mine-cell.open{background:#222}
+#depositModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:30;justify-content:center;align-items:center}
+.modal-box{background:#1e1e1e;padding:20px;border-radius:16px;width:90%;max-width:350px;text-align:center}
+.modal-box input{width:100%;padding:12px;border-radius:8px;border:1px solid #444;background:#111;color:#fff;margin:12px 0}
 </style>
 </head>
 <body>
 <div class="header">91 CLUB</div>
-<div class="wallet"><span>₹1000.00</span><button>Deposit</button></div>
+<div class="wallet"><span>₹1000.00</span><button onclick="openDeposit()">Deposit</button></div>
 <div class="games">
-<div class="card"><a href="#">🐔 Chicken Road 2</a></div>
-<div class="card"><a href="#">🎮 Aviator</a></div>
-<div class="card"><a href="#">🎯 Mines</a></div>
-<div class="card"><a href="#">🎰 Slots</a></div>
+<div class="card" onclick="openGame('chicken')"><span class="icon">🐔</span><span class="name">Chicken Road 2</span></div>
+<div class="card" onclick="openGame('aviator')"><span class="icon">✈️</span><span class="name">Aviator</span></div>
+<div class="card" onclick="openGame('mines')"><span class="icon">💣</span><span class="name">Mines</span></div>
+<div class="card" onclick="openGame('slots')"><span class="icon">🎰</span><span class="name">Slots</span></div>
 </div>
+<div id="gameView">
+<div class="top"><button onclick="closeGame()">← Back</button><span id="gameTitle" style="font-weight:bold"></span></div>
+<div class="game-area" id="gameArea"></div>
+</div>
+<div id="depositModal" onclick="if(event.target==this)closeDeposit()">
+<div class="modal-box">
+<h3>💰 Deposit</h3>
+<input type="number" id="depAmt" placeholder="Enter Amount e.g. 500">
+<button class="big-btn" onclick="doDeposit()">Pay Now</button>
+<button style="background:none;border:none;color:#aaa;margin-top:10px" onclick="closeDeposit()">Cancel</button>
+</div>
+</div>
+<script>
+function openDeposit(){document.getElementById('depositModal').style.display='flex'}
+function closeDeposit(){document.getElementById('depositModal').style.display='none'}
+function doDeposit(){let amt=document.getElementById('depAmt').value;if(!amt||amt<100){alert('Minimum ₹100 nakho bhai!');return;}alert('₹'+amt+' Deposit Request Sent!');closeDeposit();}
+function openGame(name){document.getElementById('gameView').style.display='block';let title=document.getElementById('gameTitle');let area=document.getElementById('gameArea');if(name=='chicken'){title.innerText='Chicken Road 2';area.innerHTML='<div class="multiplier">🐔</div><p>Chicken Road par chalavu!</p><div style="background:#333;height:20px;border-radius:10px;margin:20px;overflow:hidden"><div id="road" style="width:0%;height:100%;background:#e60000;transition:1s"></div></div><button class="big-btn" onclick="playChicken()">GO - ₹10 Bet</button><p id="chRes" style="margin-top:15px"></p>';}else if(name=='aviator'){title.innerText='Aviator';area.innerHTML='<div class="multiplier" id="aviMul">1.00x</div><p>✈️ Plane udse tyare cashout karo!</p><button class="big-btn" id="aviBtn" onclick="playAviator()">BET ₹20 - TAKE OFF</button><button class="big-btn" style="background:#00c853;display:none" id="cashBtn" onclick="cashout()">CASHOUT</button><p id="aviRes"></p>';}else if(name=='mines'){title.innerText='Mines';area.innerHTML='<p>💣 Bomb thi bacho!</p><div class="grid-mines" id="mineGrid"></div><p id="mineRes"></p><button class="big-btn" onclick="initMines()">New Game - ₹10</button>';initMines();}else{title.innerText='Slots';area.innerHTML='<div class="multiplier" id="slotBox" style="font-size:50px">🎰 🎰 🎰</div><button class="big-btn" onclick="spinSlot()">SPIN ₹10</button><p id="slotRes"></p>';}}
+function closeGame(){document.getElementById('gameView').style.display='none';stopAviator();}
+let chickenProgress=0;function playChicken(){let road=document.getElementById('road');chickenProgress+=25;road.style.width=chickenProgress+'%';if(chickenProgress>=100){document.getElementById('chRes').innerHTML='🎉 Win! +₹40';chickenProgress=0;}else{if(Math.random()>0.8){document.getElementById('chRes').innerText='💥 Car ne mari didhu! Loss';chickenProgress=0;road.style.width='0%';}else{document.getElementById('chRes').innerText='✅ Safe! Aagad vadho...';}}}
+let aviInterval,aviVal=1.00,flying=false;function playAviator(){aviVal=1.00;flying=true;document.getElementById('aviBtn').style.display='none';document.getElementById('cashBtn').style.display='inline-block';aviInterval=setInterval(()=>{aviVal+=0.1+Math.random()*0.15;document.getElementById('aviMul').innerText=aviVal.toFixed(2)+'x';if(Math.random()>0.97){crashAviator();}},200);}function cashout(){if(!flying)return;let win=(20*aviVal).toFixed(0);document.getElementById('aviRes').innerHTML='✅ Win ₹'+win;stopAviator();}function crashAviator(){stopAviator();document.getElementById('aviMul').innerText='💥 CRASH '+aviVal.toFixed(2)+'x';document.getElementById('aviRes').innerHTML='❌ Crash! Loss ₹20';}function stopAviator(){clearInterval(aviInterval);flying=false;document.getElementById('aviBtn').style.display='inline-block';document.getElementById('cashBtn').style.display='none';}
+function initMines(){let grid=document.getElementById('mineGrid');if(!grid)return;grid.innerHTML='';let bombPos=Math.floor(Math.random()*25);for(let i=0;i<25;i++){let cell=document.createElement('div');cell.className='mine-cell';cell.innerText='?';cell.onclick=()=>{if(cell.classList.contains('open'))return;cell.classList.add('open');if(i==bombPos){cell.innerText='💣';cell.style.background='#e60000';document.getElementById('mineRes').innerText='💥 Bomb! Loss';}else{cell.innerText='💎';cell.style.background='#00c853';}};grid.appendChild(cell);}document.getElementById('mineRes').innerText='Pick tiles!';}
+function spinSlot(){let icons=['🍒','🍋','💎','7️⃣','🎰','🍀'];let a=icons[Math.floor(Math.random()*icons.length)];let b=icons[Math.floor(Math.random()*icons.length)];let c=icons[Math.floor(Math.random()*icons.length)];document.getElementById('slotBox').innerText=a+' '+b+' '+c;if(a==b&&b==c){document.getElementById('slotRes').innerHTML='🎉 JACKPOT ₹500!';}else if(a==b||b==c||a==c){document.getElementById('slotRes').innerHTML='✅ Win +₹30';}else{document.getElementById('slotRes').innerHTML='❌ Try Again!';}}
+</script>
 </body>
 </html>
