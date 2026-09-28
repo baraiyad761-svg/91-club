@@ -1,72 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>91CLUB - Official</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f5f5f5;padding-bottom:70px}
-.topbar{background:#d80000;color:#fff;padding:10px 15px;display:flex;justify-content:space-between;align-items:center}
-.topbar .logo{font-weight:800;font-size:22px}
-.topbar .bal{background:#fff;color:#d80000;padding:4px 10px;border-radius:15px;font-weight:700;font-size:13px}
-.banner{margin:12px;border-radius:14px;background:linear-gradient(90deg,#ff2a2a,#a00000);padding:18px 20px;color:#fff;position:relative}
-.banner h2{font-size:22px}
-.banner .bonus{position:absolute;right:15px;top:50%;transform:translateY(-50%);background:gold;color:#000;padding:8px 12px;border-radius:10px;font-weight:800;font-size:12px}
-.wallet-card{background:#fff;margin:0 12px 12px;padding:14px;border-radius:14px;display:flex;justify-content:space-between;box-shadow:0 2px 10px rgba(0,0,0,0.07)}
-.wallet-card b{display:block;font-size:18px;color:#d80000}
-.wallet-card span{font-size:11px;color:#777}
-.deposit-btn{background:#d80000;color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700}
-.menu{display:flex;gap:10px;padding:0 12px 10px;overflow:auto}
-.menu div{background:#fff;padding:8px 14px;border-radius:20px;font-size:13px;border:1px solid #eee}
-.menu div.active{background:#d80000;color:#fff}
-.section-title{padding:10px 15px 5px;font-weight:700;font-size:16px;display:flex;justify-content:space-between}
-.games-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:10px 12px}
-.g-card{background:#fff;border-radius:16px;padding:10px 5px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.06);cursor:pointer}
-.g-card span{font-size:11px;font-weight:600}
-.big-games{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 12px 12px}
-.big-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);cursor:pointer}
-.big-card .thumb{height:90px;background:#222;display:flex;align-items:center;justify-content:center;font-size:40px}
-.big-card .info{padding:10px}.big-card .info b{font-size:13px}
-.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;padding:8px 0}
-.bottom-nav div{text-align:center;font-size:10px;color:#888}.bottom-nav div.active{color:#d80000;font-weight:700}
-#gameView{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#111;z-index:50;overflow:auto;color:#fff}
-#gameView .top{padding:15px;background:#1a1a1a;display:flex;gap:15px}
-.big-btn{background:#d80000;color:#fff;border:none;padding:14px 30px;border-radius:12px;font-size:16px;font-weight:bold;margin:12px;width:85%}
-.multiplier{font-size:56px;font-weight:800;color:#00ff88;margin:25px 0}
-.mine-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:320px;margin:20px auto}
-.mine-cell{background:#333;height:58px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer}
-#depModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:60;justify-content:center;align-items:center}
-.modal{background:#fff;padding:20px;border-radius:18px;width:90%;max-width:360px;text-align:center}
-.modal input{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;margin:12px 0}
-</style>
-</head>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>91 CLUB</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#f2f2f2;padding-bottom:70px}
+.top{position:sticky;top:0;z-index:20;background:#fff;display:flex;justify-content:space-between;padding:8px 10px;border-bottom:1px solid #eee}
+.logo{font-weight:900;color:#e60000;font-size:20px}
+.bal{font-size:12px;background:#fff0f0;padding:4px 8px;border-radius:6px;border:1px solid #ffcaca}
+.official{margin:8px;background:#000;border-radius:10px;padding:8px 12px;color:#fff;display:flex;justify-content:space-between;font-size:12px}
+.top-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:6px 8px}
+.ac{background:#fff;border-radius:10px;padding:8px 4px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.1);font-size:10px}
+.lobby-title{padding:10px 12px 4px;font-weight:800;font-size:13px;display:flex;justify-content:space-between}
+.game-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:6px 8px}
+.game-card{border-radius:12px;height:90px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;position:relative;cursor:pointer}
+.lottery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:6px 8px}
+.lot-box{background:#fff;border-radius:12px;padding:8px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer}
+.mini-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:6px 8px}
+.mini-box{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer}
+.thumb{height:70px;background:linear-gradient(135deg,#333,#666);display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff}
+.lbl{padding:6px;font-size:11px;font-weight:700;text-align:center}
+.bottom{position:fixed;bottom:0;left:0;width:100%;background:#fff;display:flex;justify-content:space-around;padding:6px 0;border-top:1px solid #eee}
+.bottom div.active{color:#e60000}
+#gameModal{display:none;position:fixed;inset:0;background:#0f0f0f;z-index:50;color:#fff;overflow:auto}
+.btn-red{background:#e60000;color:#fff;border:none;padding:12px 28px;border-radius:10px;font-weight:800;margin:10px;width:85%}
+</style></head>
 <body>
-<div class="topbar"><div class="logo">91 CLUB</div><div class="bal">₹ 1000.00</div></div>
-<div class="banner"><h2>Welcome Bonus<br>₹500 FREE</h2><p>Deposit ₹100 & Get Bonus</p><div class="bonus">CLAIM<br>NOW</div></div>
-<div class="wallet-card"><div><b>₹1000.00</b><span>Balance</span></div><div><b>₹0.00</b><span>Commission</span></div><button class="deposit-btn" onclick="openDep()">Deposit</button></div>
-<div class="menu"><div class="active">🔥 Popular</div><div>🎮 Original</div><div>🎰 Slots</div><div>🏏 Sports</div></div>
-<div class="section-title"><span>Lottery Games</span></div>
-<div class="games-grid">
-<div class="g-card" onclick="openGame('wingo')"><div style="font-size:30px">🎯</div><span>Wingo 1Min</span></div>
-<div class="g-card" onclick="openGame('k3')"><div style="font-size:30px">🎲</div><span>K3 Lotre</span></div>
-<div class="g-card" onclick="openGame('5d')"><div style="font-size:30px">🔢</div><span>5D Lotre</span></div>
-<div class="g-card" onclick="openGame('trx')"><div style="font-size:30px">⚡</div><span>TRX Wingo</span></div>
+<div class="top"><div class="logo">91 CLUB</div><div class="bal">₹0.34 💰</div></div>
+<div class="official"><div>🔔 OFFICIAL CHANNEL</div><div style="background:#e60000;padding:4px 8px;border-radius:12px">JOIN</div></div>
+<div class="top-actions"><div class="ac">🏧<br>Withdraw</div><div class="ac">💰<br>Deposit</div><div class="ac">🎁<br>Bonus</div><div class="ac">💬<br>Support</div></div>
+
+<div class="lobby-title">🎮 Lottery</div>
+<div class="lottery-grid">
+<div class="lot-box" onclick="openG('Win Go')">🎯<br><b>Win Go</b></div>
+<div class="lot-box" onclick="openG('5D')">🔢<br><b>5D</b></div>
+<div class="lot-box" onclick="openG('TRX WINGO')">⚡<br><b>TRX WINGO</b></div>
 </div>
-<div class="section-title"><span>Original 91Club</span></div>
-<div class="big-games">
-<div class="big-card" onclick="openGame('chicken')"><div class="thumb">🐔</div><div class="info"><b>Chicken Road 2.0</b></div></div>
-<div class="big-card" onclick="openGame('aviator')"><div class="thumb">✈️</div><div class="info"><b>Aviator Crash</b></div></div>
-<div class="big-card" onclick="openGame('mines')"><div class="thumb">💣</div><div class="info"><b>Mines</b></div></div>
-<div class="big-card" onclick="openGame('slots')"><div class="thumb">🎰</div><div class="info"><b>Super Slots</b></div></div>
+
+<div class="lobby-title">🔥 CHICKEN ROAD 3</div>
+<div class="game-row">
+<div class="game-card" style="background:linear-gradient(135deg,#ff7a00,#ff3c00)" onclick="openG('CHICKEN ROAD 2')">🐔 CHICKEN ROAD 3</div>
+<div class="game-card" style="background:linear-gradient(135deg,#00c6ff,#0072ff)" onclick="openG('VORTEX')">🌪️ VORTEX</div>
 </div>
-<div class="bottom-nav"><div class="active">🏠<br>Home</div><div>🎮<br>Activity</div><div>🎁<br>Promo</div><div>💼<br>Wallet</div><div>👤<br>Account</div></div>
-<div id="gameView"><div class="top"><button onclick="closeGame()">← Back</button><span id="gTitle"></span></div><div style="padding:20px;text-align:center" id="gArea"></div></div>
-<div id="depModal" onclick="if(event.target==this)closeDep()"><div class="modal"><h3>Deposit</h3><input id="depAmt" type="number" placeholder="₹100"><button class="big-btn" onclick="alert('Payment Success!')">Pay Now</button><br><button onclick="closeDep()" style="border:none;background:none;color:#888">Cancel</button></div></div>
+
+<div class="lobby-title">Mini Games</div>
+<div class="mini-row">
+<div class="mini-box" onclick="openG('POKER')"><div class="thumb">♠️</div><div class="lbl">POKER</div></div>
+<div class="mini-box" onclick="openG('WAVE')"><div class="thumb">🌊</div><div class="lbl">WAVE</div></div>
+<div class="mini-box" onclick="openG('TREASURE')"><div class="thumb">💎</div><div class="lbl">TREASURE</div></div>
+</div>
+
+<div class="bottom"><div class="active">🏠<br>Home</div><div>🎮<br>Activity</div><div>💰<br>Wallet</div><div>👤<br>Account</div></div>
+
+<div id="gameModal"><div style="padding:14px;background:#1e1e1e;display:flex;gap:12px"><button onclick="closeG()" style="background:#333;color:#fff;border:none;padding:6px 12px;border-radius:8px">← Back</button><span id="gTitle" style="font-weight:800"></span></div><div id="gBody" style="padding:20px;text-align:center"></div></div>
+
 <script>
-function openDep(){document.getElementById('depModal').style.display='flex'}
-function closeDep(){document.getElementById('depModal').style.display='none'}
-function openGame(n){document.getElementById('gameView').style.display='block';document.getElementById('gTitle').innerText=n;document.getElementById('gArea').innerHTML='<div class=multiplier>'+ (n=='chicken'?'🐔':n=='aviator'?'✈️':'🎮') +'</div><p>'+n+' Game Loading...</p><button class=big-btn onclick=alert("Play Start ₹10")>PLAY ₹10</button>'}
-function closeGame(){document.getElementById('gameView').style.display='none'}
+function openG(n){document.getElementById('gameModal').style.display='block';document.getElementById('gTitle').innerText=n;let b=document.getElementById('gBody');if(n.includes('CHICKEN')){b.innerHTML=`<div style="font-size:60px">🐔</div><h2>Chicken Road 3</h2><div style="background:#222;height:14px;border-radius:8px;margin:20px;overflow:hidden"><div id="road" style="width:0%;height:100%;background:#e60000;transition:.4s"></div></div><button class="btn-red" onclick="playCh()">GO - ₹10 BET</button><p id="cr"></p>`}else{b.innerHTML=`<h2>${n}</h2><button class="btn-red" onclick="alert('${n} Started!')">PLAY NOW ₹10</button>`}}
+function closeG(){document.getElementById('gameModal').style.display='none'}
+let prog=0;function playCh(){let r=document.getElementById('road');prog+=25;r.style.width=prog+'%';if(prog>=100){document.getElementById('cr').innerHTML='🎉 WIN ₹40!';prog=0}else{if(Math.random()>0.75){document.getElementById('cr').innerText='💥 Loss!';prog=0;r.style.width='0%'}else{document.getElementById('cr').innerText='✅ Safe!'}}}
 </script>
-</body>
-  </html>
+</body></html>
